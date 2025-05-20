@@ -1,1 +1,0 @@
-{"virtualbox":{"/home/vagrant/srcs":{"create":true,"guestpath":"/home/vagrant/srcs","hostpath":"/goinfre/dliuzzo/iot/srcs","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/goinfre/dliuzzo/iot","disabled":false,"__vagrantfile":true}}}

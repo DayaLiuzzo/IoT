@@ -1,0 +1,33 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-24.04"
+  config.vm.box_version = "202502.21.0"
+
+  config.vm.define "dliuzzoS" do |control|
+    control.vm.hostname = "dliuzzoS"
+    control.vm.network "private_network", ip: "192.168.56.110"
+    control.vm.synced_folder "./srcs", "/home/vagrant/srcs", create: true
+    
+    control.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--name", "dliuzzoS"]
+      v.memory = 1024    # RAM in MB (e.g., 1024 = 1 GB)
+      v.cpus = 2         # Number of CPU cores
+    end
+
+    control.vm.provision "shell", path: "server-dependencies.sh"
+  end
+
+  config.vm.define "dliuzzoSW" do |control|
+    control.vm.hostname = "dliuzzoSW"
+    control.vm.network "private_network", ip: "192.168.56.111"
+    
+    control.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--name", "dliuzzoSW"]
+      v.memory = 512   # RAM in MB (e.g., 1024 = 1 GB)
+      v.cpus = 1         # Number of CPU cores
+    end
+    
+    control.vm.provision "shell", path: "agent-dependencies.sh"
+
+  end
+
+end
