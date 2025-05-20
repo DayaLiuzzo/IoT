@@ -1,1 +1,1 @@
-{"name":"ubuntu/trusty64","version":"20191107.0.0","provider":"virtualbox","directory":"boxes/ubuntu-VAGRANTSLASH-trusty64/20191107.0.0/virtualbox"}
+{"name":"bento/ubuntu-24.04","version":"202502.21.0","provider":"virtualbox","directory":"boxes/bento-VAGRANTSLASH-ubuntu-24.04/202502.21.0/amd64/virtualbox"}
