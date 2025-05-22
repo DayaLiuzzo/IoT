@@ -1,20 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app1
+  name: app-one
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app1
+      app: app-one
   template:
     metadata:
       labels:
-        app: app1
+        app: app-one
     spec:
       containers:
-      - name: app1-container
+      - name: app-one-container
         image: dliuzzo/simple:latest
+        env:
+        - name: APP_NAME
+          value: "APP-ONE"
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
@@ -22,10 +33,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app1-service
+  name: app-one
 spec:
   selector:
-    app: app1
+    app: app-one
   ports:
     - protocol: TCP
       port: 80
@@ -36,20 +47,32 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app2
+  name: app-two
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app2
+      app: app-two
   template:
     metadata:
       labels:
-        app: app2
+        app: app-two
     spec:
       containers:
-      - name: app2-container
+      - name: app-two-container
         image: dliuzzo/simple:latest
+        env:
+          - name: APP_NAME
+            value: "APP-TWO"
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
@@ -57,10 +80,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app2-service
+  name: app-two
 spec:
   selector:
-    app: app2
+    app: app-two
   ports:
     - protocol: TCP
       port: 80
@@ -71,20 +94,31 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app3
+  name: app-three
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app3
+      app: app-three
   template:
     metadata:
       labels:
-        app: app3
+        app: app-three
     spec:
       containers:
-      - name: app3-container
+      - name: app-three-container
         image: dliuzzo/simple:latest
+        env:
+        - name: APP_NAME
+          value: "APP-THREE"
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
@@ -92,10 +126,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app3-service
+  name: app-three
 spec:
   selector:
-    app: app3
+    app: app-three
   ports:
     - protocol: TCP
       port: 80
