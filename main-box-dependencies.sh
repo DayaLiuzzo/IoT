@@ -25,3 +25,5 @@ sudo modprobe vboxdrv
 
 # OPTIONAL: Reboot manually after script finishes
 echo "✅ VirtualBox setup complete. Reboot manually if needed."
+
+

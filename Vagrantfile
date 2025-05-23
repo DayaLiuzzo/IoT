@@ -10,5 +10,6 @@ Vagrant.configure("2") do |config|
   end
   
   config.vm.provision "shell", path: "main-box-dependencies.sh"
+  config.vm.provision "shell", path: "install-dependencies.sh"
 end
 
