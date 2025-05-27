@@ -3,3 +3,6 @@ kind: Simple
 metadata:
   name: argocd-lab
 servers: 1
+ports:
+  - port: 80:80@loadbalancer
+  - port: 443:443@loadbalancer
