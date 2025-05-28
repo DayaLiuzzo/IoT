@@ -21,9 +21,13 @@ sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 rm argocd-linux-amd64
 
 # cluster & namespaces
-sudo k3d cluster create inception
-sudo k3d cluster start inception
+# sudo k3d cluster create inception
+sudo k3d cluster create --config  conf/inception-cluster.yaml
+sudo k3d cluster start inception-cluster
 sudo kubectl create namespace argocd
 sudo kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 sudo kubectl create namespace dev
-sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+# sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+sleep 5
+export ARGOPASSWORD=$(sudo kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath='{.data.password}' | base64 -d)
+echo $ARGOPASSWORD
