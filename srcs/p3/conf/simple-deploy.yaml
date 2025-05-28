@@ -42,15 +42,15 @@ metadata:
   name: simple-app-ingress
   namespace: dev
   annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   rules:
-  - host: simple-app.local
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: simple-app
-            port:
-              number: 80
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: simple-app
+                port:
+                  number: 80
