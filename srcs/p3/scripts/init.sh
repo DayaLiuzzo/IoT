@@ -1,5 +1,5 @@
 #init cluster
-k3d cluster create --config ../conf/k3d-argocd-lab.yaml
+k3d cluster create --config conf/k3d-argocd-lab.yaml
 
 #argocd install
 kubectl create namespace argocd
