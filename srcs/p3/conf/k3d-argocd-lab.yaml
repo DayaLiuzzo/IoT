@@ -3,10 +3,3 @@ kind: Simple
 metadata:
   name: argocd-lab
 servers: 1
-ports:
-  - port: 8888:80
-    nodeFilters:
-      - loadbalancer
-  - port: 8443:443
-    nodeFilters:
-      - loadbalancer
