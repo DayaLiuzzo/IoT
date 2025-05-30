@@ -3,8 +3,8 @@ k3d cluster create --config conf/k3d-argocd-lab.yaml
 
 #argocd install
 kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-# kubectl apply -n argocd -f conf/install.yaml
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd -f conf/argocd-install.yaml
 
 #argocd cli
 VERSION=$(curl -L -s https://raw.githubusercontent.com/argoproj/argo-cd/stable/VERSION)

@@ -1,6 +1,11 @@
+#!/bin/sh
+
+. scripts/.env
+
 ARGOCD_ADMIN_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 
-kubectl -n argocd port-forward svc/argocd-server 8080:443 &
+
+kubectl -n argocd port-forward svc/argocd-server 8080:443 --address 0.0.0.0 > /dev/null 2>&1 &
 PF_PID=$!
 
 # Wait for port-forward to be ready
@@ -10,6 +15,7 @@ done
 
 argocd login localhost:8080 --username admin --password $ARGOCD_ADMIN_PASSWORD --insecure
 
+argocd account update-password --current-password "$ARGOCD_ADMIN_PASSWORD" --new-password "$NEW_PASSWORD"
 
 kubectl config set-context --current --namespace=argocd
 argocd app create simple-app \
@@ -19,29 +25,6 @@ argocd app create simple-app \
 --dest-namespace dev
 
 argocd app sync simple-app
+argocd app set simple-app --sync-policy automated
 
-SLEEP_INTERVAL=2
-POD_NAME=$(kubectl get pods -n dev -l app=simple-app -o jsonpath="{.items[0].metadata.name}")
-NAMESPACE=dev
-TIMEOUT=60                 
-SLEEP_INTERVAL=2
 
-elapsed=0
-while true; do
-  POD_STATUS=$(kubectl -n "$NAMESPACE" get pods -l "$POD_LABEL" -o jsonpath="{.items[0].status.phase}" 2>/dev/null || echo "NotFound")
-  if [ "$POD_STATUS" = "Running" ]; then
-    echo "Pod is running!"
-    break
-  fi
-
-  if [ "$elapsed" -ge "$TIMEOUT" ]; then
-    echo "Timeout waiting for pod to be running" >&2
-    exit 1
-  fi
-
-  echo "Waiting for pod to be running (current status: $POD_STATUS)..."
-  sleep $SLEEP_INTERVAL
-  elapsed=$((elapsed + SLEEP_INTERVAL))
-done
-
-kubectl port-forward -n dev svc/simple-app 8888:80 --address 0.0.0.0 & 

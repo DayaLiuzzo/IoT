@@ -25436,6 +25436,8 @@ spec:
       - args:
         - /usr/local/bin/argocd-repo-server
         env:
+        - name: ARGOCD_GIT_POLL_INTERVAL
+          value: "30s"
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -25787,7 +25789,6 @@ spec:
       containers:
       - args:
         - /usr/local/bin/argocd-server
-        - --insecure
         env:
         - name: REDIS_PASSWORD
           valueFrom:
