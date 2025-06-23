@@ -8,7 +8,10 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
   vb.customize ['modifyvm', :id, '--nested-hw-virt', 'on']
   end
-  
-  config.vm.provision "shell", path: "main-box-dependencies.sh"
-end
 
+  #port forwarding for p3
+  config.vm.network "private_network", ip: "192.168.56.110"
+
+  config.vm.provision "shell", path: "main-box-dependencies.sh"
+  # config.vm.provision "shell", path: "install-dependencies.sh"
+end
