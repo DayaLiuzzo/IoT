@@ -6,7 +6,9 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "dayaMB"
   
   config.vm.provider "virtualbox" do |vb|
-  vb.customize ['modifyvm', :id, '--nested-hw-virt', 'on']
+    vb.memory = "8192"  # 8GB RAM
+    vb.cpus = 8
+    vb.customize ['modifyvm', :id, '--nested-hw-virt', 'on']
   end
 
   #port forwarding for p3

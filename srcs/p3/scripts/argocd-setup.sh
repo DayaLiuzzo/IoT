@@ -1,6 +1,9 @@
 #!/bin/sh
 
-. scripts/.env
+kubectl create namespace argocd
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd -f conf/argocd-install.yaml
+
 
 ARGOCD_ADMIN_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 
@@ -15,7 +18,7 @@ done
 
 argocd login localhost:8080 --username admin --password $ARGOCD_ADMIN_PASSWORD --insecure
 
-argocd account update-password --current-password "$ARGOCD_ADMIN_PASSWORD" --new-password "$NEW_PASSWORD"
+argocd account update-password --current-password "$ARGOCD_ADMIN_PASSWORD" --new-password "Password123!"
 
 kubectl config set-context --current --namespace=argocd
 argocd app create simple-app \
