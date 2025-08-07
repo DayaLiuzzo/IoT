@@ -27,3 +27,6 @@ sudo git add .
 sudo git commit -m "Update from GitHub repo"
 sudo git push
 ```
+Use 'kubectl apply" the first time to update the repo Url to the gitlab one instead of github
+
+kubectl apply -f argocd-deploy.yaml 
