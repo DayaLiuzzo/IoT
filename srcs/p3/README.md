@@ -31,3 +31,7 @@ ArgoCD monitors `https://github.com/DayaLiuzzo/dliuzzo_iot.git` and auto-syncs t
 ```bash
 k3d cluster delete argocd-lab
 ``` 
+
+
+## CHECK
+To check at "MachineIP:8888" for simple app from the host, or curl it from the Vm at "Localhost:8888"
