@@ -1,3 +1,4 @@
+apt-get update -y
 apt-get install -y ca-certificates curl gnupg git
 
 # Add Docker's official GPG key
